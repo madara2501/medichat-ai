@@ -10,7 +10,6 @@ from config import get_client
 from emergency import check_emergency
 from bmi import extract_bmi_data, calculate_bmi
 from database import get_db, hash_password
-from excel_logger import save_chat_excel
 from flask_mail import Mail, Message
 import random
 
@@ -603,12 +602,6 @@ Now respond naturally as MediChat.
         bot_reply
     )
 
-    save_chat_excel(
-        session['user_id'],
-        session['email'],
-        user_input,
-        bot_reply
-    )
 
     return jsonify({"reply": bot_reply})
     
