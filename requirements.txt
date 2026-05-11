@@ -1,0 +1,8 @@
+flask
+python-dotenv
+google-genai
+flask-mail
+pandas
+openpyxl
+werkzeug
+gunicorn
