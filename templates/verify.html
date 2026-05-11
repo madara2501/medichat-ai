@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>verify OTP</title>
+     <style>
+        body{
+            font-family: Arial;
+            background:#0f172a;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .box{
+            background:white;
+            padding:40px;
+            border-radius:20px;
+            width:350px;
+        }
+
+        input{
+            width:100%;
+            padding:14px;
+            margin-top:15px;
+            border-radius:10px;
+            border:1px solid #ccc;
+        }
+
+        button{
+            width:100%;
+            padding:14px;
+            margin-top:20px;
+            border:none;
+            background:#2563eb;
+            color:white;
+            border-radius:10px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+
+    <h2>Email Verification</h2>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="otp"
+            placeholder="Enter OTP"
+            required
+        >
+
+        <button type="submit">
+            Verify OTP
+        </button>
+        <a href="/resend_otp"
+         style="display:block;
+            margin-top:15px;
+            text-align:center;
+            color:#2563eb;
+            text-decoration:none;"
+            >
+          Resend OTP
+       </a>
+
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediChat Admin Panel</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+
+<div class="admin-wrapper">
+
+    <!-- Sidebar -->
+    <div class="admin-menu">
+
+       <div class="menu-item active"
+            onclick="showAdminPage('dashboard-page', this)">
+           <i class="fa-solid fa-chart-line"></i>
+           <span>Dashboard</span>
+       </div>
+
+       <div class="menu-item"
+            onclick="showAdminPage('users-page', this)">
+           <i class="fa-solid fa-users"></i>
+           <span>Total Users</span>
+       </div>
+
+       <div class="menu-item"
+            onclick="showAdminPage('chats-page', this)">
+           <i class="fa-solid fa-comments"></i>
+           <span>All Chats</span>
+       </div>
+
+    </div>
+    
+    <!-- Main Content -->
+    <div class="admin-main">
+
+       <!-- DASHBOARD PAGE -->
+       <div id="dashboard-page" class="admin-page">
+
+           <div class="topbar">
+               <h1>Dashboard</h1>
+           </div>
+
+           <div class="stats-grid">
+
+               <div class="stat-card">
+                   <i class="fa-solid fa-users"></i>
+
+                   <div>
+                       <h2>{{ chats|length }}</h2>
+                       <p>Total Conversations</p>
+                   </div>
+               </div>
+
+               <div class="stat-card">
+                   <i class="fa-solid fa-user-check"></i>
+
+                   <div>
+                       <h2>{{ chats|map(attribute='email')|unique|list|length }}</h2>
+                       <p>Total Users</p>
+                   </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- USERS PAGE -->
+       <div id="users-page" class="admin-page" style="display:none;">
+
+           <div class="topbar">
+               <h1>Total Users</h1>
+           </div>
+
+           {% set shown_users = [] %}
+
+           {% for chat in chats %}
+
+               {% if chat.email not in shown_users %}
+
+                   {% set _ = shown_users.append(chat.email) %}
+
+                   <div class="chat-card">
+
+                       <div class="user-info">
+
+                           <div class="avatar">
+                              {{ chat.email[:2].upper() }}
+                           </div>
+
+                           <div>
+                               <h3>{{ chat.email.split('@')[0] }}</h3>
+                               <span>{{ chat.email }}</span>
+                           </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- CHATS PAGE -->
+        <div id="chats-page" class="admin-page" style="display:none;">
+
+           <div class="topbar">
+                <h1>All Chats</h1>
+           </div>
+
+            {% for chat in chats %}
+
+           <div class="chat-card">
+
+               <div class="chat-header">
+
+                   <div class="user-info">
+
+                       <div class="avatar">
+                           {{ chat.email[:2].upper() }}
+                       </div>
+
+                       <div>
+                           <h3>{{ chat.email.split('@')[0] }}</h3>
+                           <span>{{ chat.email }}</span>
+                       </div>
+
+                    </div>
+
+                </div>
+
+                <div class="message-section">
+
+                   <h4>
+                       <i class="fa-solid fa-user"></i>
+                       User Message
+                   </h4>
+
+                   <div class="message-box user-msg">
+                       {{ chat.user_message }}
+                   </div>
+
+                </div>
+
+                <div class="message-section">
+
+                   <h4>
+                       <i class="fa-solid fa-robot"></i>
+                       AI Reply
+                   </h4>
+
+                   <div class="message-box bot-msg">
+                       {{ chat.bot_reply }}
+                   </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function showAdminPage(pageId, element){
+
+    // HIDE ALL PAGES
+    document.querySelectorAll(".admin-page")
+    .forEach(page => {
+        page.style.display = "none";
+    });
+
+    // SHOW SELECTED PAGE
+    document.getElementById(pageId)
+        .style.display = "block";
+
+    // REMOVE ACTIVE CLASS
+    document.querySelectorAll(".menu-item")
+    .forEach(item => {
+        item.classList.remove("active");
+    });
+
+    // ADD ACTIVE CLASS
+    element.classList.add("active");
+}
+
+</script>
+
+</body>
+</html>
