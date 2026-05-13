@@ -616,11 +616,15 @@ body {
 
     /* Sidebar */
     .sidebar {
-        width: 65px;
-        min-width: 65px;
-        height: 100vh;
-        overflow: hidden;
-    }
+    width: 65px;
+    min-width: 65px;
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
     .logo h1,
     .nav-item span,
@@ -638,10 +642,16 @@ body {
         padding: 14px 0;
     }
 
-    .user-profile {
-        justify-content: center;
-        padding: 10px 0;
-    }
+   .user-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+}
+
+    .profile-wrapper {
+    margin-bottom: 10px;
+}
 
     /* Main Chat Area */
     .chat-container {
@@ -685,8 +695,8 @@ body {
     /* Messages */
     .messages {
         padding: 15px;
-        padding-bottom: 120px;
-        overflow-y: auto;
+        padding-bottom: 160px;
+        overflow-y: auto
     }
 
     /* Input Area */
