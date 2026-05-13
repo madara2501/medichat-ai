@@ -4,3 +4,4 @@ google-genai
 flask-mail
 werkzeug
 gunicorn
+requests
