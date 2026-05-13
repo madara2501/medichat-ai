@@ -84,6 +84,7 @@ def send_email(receiver_email, subject, content):
 </body>
 </html>
 """
+}
 
     response = requests.post(
         url,
