@@ -628,6 +628,7 @@ body {
 
     .logo {
         justify-content: center;
+        padding: 15px 0;
     }
 
     .nav-item {
@@ -640,42 +641,64 @@ body {
         padding: 10px 0;
     }
 
-    /* Chat Area */
+    /* Main Chat Area */
     .chat-container {
         width: calc(100% - 65px);
+        height: 100vh;
     }
 
     /* Header */
     .header {
         padding: 12px;
+        gap: 10px;
     }
 
     .header-left strong {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .status {
-        font-size: 13px;
+        font-size: 12px;
     }
 
-    /* Welcome Text */
+    /* Clear Button */
+    .clear-btn {
+        font-size: 11px;
+        padding: 8px 10px;
+        border-radius: 10px;
+    }
+
+    /* Welcome Section */
     .welcome-section h1 {
-        font-size: 32px;
+        font-size: 28px;
         text-align: center;
     }
 
     .welcome-section p {
-        font-size: 16px;
+        font-size: 15px;
         text-align: center;
+        line-height: 1.5;
     }
 
-    /* Input */
+    /* Messages */
+    .messages {
+        padding: 15px;
+        padding-bottom: 110px;
+    }
+
+    /* Input Area */
     .input-area {
-        padding: 10px;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        width: calc(100% - 85px);
+        background: transparent;
+        z-index: 100;
     }
 
     .input-wrapper {
         width: 100%;
+        border-radius: 30px;
     }
 
     .input-wrapper input {
@@ -686,9 +709,10 @@ body {
     .send-btn {
         width: 48px;
         height: 48px;
+        border-radius: 50%;
     }
 
-    /* Profile Card */
+    /* Profile */
     .profile-card {
         width: 92%;
     }
