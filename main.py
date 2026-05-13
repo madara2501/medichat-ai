@@ -17,12 +17,11 @@ load_dotenv()
 
 app = Flask(__name__)
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_SERVER'] = 'smtp-relay.brevo.com'
 
-app.config['MAIL_PORT'] = 465
-
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
 
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
@@ -170,7 +169,8 @@ MediChat Team
         return redirect('/verify')
 
     except Exception as e:
-        print(e)
+        import traceback
+        traceback.print_exc()
         return str(e)
 
 @app.route('/verify', methods=['GET', 'POST'])
@@ -299,10 +299,9 @@ MediChat Team
         return "New OTP sent successfully."
 
     except Exception as e:
-
-        print(e)
-
-        return "Failed to resend OTP"
+        import traceback
+        traceback.print_exc()
+        return str(e)
     
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
@@ -379,10 +378,9 @@ MediChat Team
             return redirect('/reset_verify')
 
         except Exception as e:
-
-            print(e)
-
-            return "Failed to send OTP"
+            import traceback
+            traceback.print_exc()
+            return str(e)
 
     return render_template('forgot_password.html')
     
