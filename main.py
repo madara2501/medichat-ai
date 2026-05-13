@@ -10,25 +10,60 @@ from config import get_client
 from emergency import check_emergency
 from bmi import extract_bmi_data, calculate_bmi
 from database import get_db, hash_password
-from flask_mail import Mail, Message
 import random
+import requests
 
 load_dotenv()
 
 app = Flask(__name__)
 
-app.config['MAIL_SERVER'] = 'smtp-relay.brevo.com'
+def send_email(receiver_email, subject, content):
 
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
+    api_key = os.getenv("BREVO_API_KEY")
 
-app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+    url = "https://api.brevo.com/v3/smtp/email"
 
-app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
-mail = Mail(app) 
+    headers = {
+        "accept": "application/json",
+        "api-key": api_key,
+        "content-type": "application/json"
+    }
 
+    data = {
+        "sender": {
+            "name": "MediChat",
+            "email": "medichat.support@gmail.com"
+        },
+
+        "to": [
+            {
+                "email": receiver_email
+            }
+        ],
+
+        "subject": subject,
+
+        "htmlContent": f"""
+        <html>
+        <body>
+            <h2>MediChat OTP Verification</h2>
+            <p>{content}</p>
+        </body>
+        </html>
+        """
+    }
+
+    response = requests.post(
+        url,
+        json=data,
+        headers=headers
+    )
+
+    print(response.status_code)
+    print(response.text)
+
+    return response.status_code
+    
 app.secret_key = os.getenv("SECRET_KEY")
 
 client = get_client()
@@ -114,14 +149,10 @@ def register():
     ).isoformat()
 
     try:
-
-        msg = Message(
-            'MediChat OTP Verification',
-            sender=app.config['MAIL_USERNAME'],
-            recipients=[email]
-        )
-
-        msg.body = f'''
+        send_email(
+            email,
+           "MediChat OTP Verification",
+            f"""
 ━━━━━━━━━━━━━━━━━━━
         MediChat 💙
 Your Smart Healthcare Assistant
@@ -162,9 +193,8 @@ Thank you for choosing MediChat 💙
 Stay healthy,
 MediChat Team
 ━━━━━━━━━━━━━━━━━━━
-'''
-
-        mail.send(msg)
+"""
+)
 
         return redirect('/verify')
 
@@ -252,14 +282,10 @@ def resend_otp():
     ).isoformat()
 
     try:
-
-        msg = Message(
-            'MediChat OTP Verification',
-            sender=app.config['MAIL_USERNAME'],
-            recipients=[email]
-        )
-
-        msg.body = f'''
+        send_email(
+             email,
+        "MediChat OTP Verification",
+        f"""
 ━━━━━━━━━━━━━━━━━━━
         MediChat 💙
 OTP Verification Request
@@ -292,9 +318,8 @@ Thank you for choosing MediChat 💙
 Stay safe and healthy,
 MediChat Team
 ━━━━━━━━━━━━━━━━━━━
-'''
-
-        mail.send(msg)
+"""
+    )
 
         return "New OTP sent successfully."
 
@@ -333,27 +358,24 @@ def forgot_password():
 
         try:
 
-            msg = Message(
-                'MediChat Password Reset OTP',
-                sender=app.config['MAIL_USERNAME'],
-                recipients=[email]
-            )
-
-            msg.body = f'''
+            send_email(
+                email,
+                "MediChat Password Reset OTP",
+                f"""
 ━━━━━━━━━━━━━━━━━━━
-MediChat 💙
+        MediChat 💙
 Password Reset Request
 ━━━━━━━━━━━━━━━━━━━
 
 Hello,
+
 We received a request to reset your MediChat account password.
+
 Your password reset OTP is:
 
 ━━━━━━━━━━━━━━━━━━━
 
-```
-    OTP: {otp}
-```
+        OTP: {otp}
 
 ━━━━━━━━━━━━━━━━━━━
 
@@ -362,24 +384,27 @@ Your password reset OTP is:
 🔒 Security Reminder:
 • Never share this OTP with anyone
 • MediChat will never ask for your OTP
-• If you did not request this reset, please ignore this email
+• If you did not request this reset,
+  please ignore this email
 
-Use this verification code to securely create a new password for your account.
+Use this verification code to securely
+create a new password for your account.
 
 Thank you for using MediChat 💙
 
 Stay safe and healthy,
 MediChat Team
 ━━━━━━━━━━━━━━━━━━━
-'''
-
-            mail.send(msg)
+"""
+            )
 
             return redirect('/reset_verify')
 
         except Exception as e:
+
             import traceback
             traceback.print_exc()
+
             return str(e)
 
     return render_template('forgot_password.html')
