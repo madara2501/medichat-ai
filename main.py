@@ -165,7 +165,7 @@ MediChat Team
 
     except Exception as e:
         print(e)
-        return "Failed to send OTP"
+        return str(e)
 
 @app.route('/verify', methods=['GET', 'POST'])
 def verify():
