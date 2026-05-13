@@ -44,14 +44,46 @@ def send_email(receiver_email, subject, content):
         "subject": subject,
 
         "htmlContent": f"""
-        <html>
-        <body>
-            <h2>MediChat OTP Verification</h2>
-            <p>{content}</p>
-        </body>
-        </html>
-        """
-    }
+<html>
+
+<body style="
+    background-color:#0f172a;
+    color:white;
+    font-family:Arial,sans-serif;
+    padding:30px;
+">
+
+<div style="
+    max-width:600px;
+    margin:auto;
+    background:#111827;
+    padding:30px;
+    border-radius:15px;
+">
+
+<h1 style="color:#60a5fa;">
+    MediChat 💙
+</h1>
+
+<h2>
+    {subject}
+</h2>
+
+<pre style="
+    white-space:pre-wrap;
+    font-size:16px;
+    line-height:1.8;
+    color:white;
+    font-family:Arial,sans-serif;
+">
+{content}
+</pre>
+
+</div>
+
+</body>
+</html>
+"""
 
     response = requests.post(
         url,
