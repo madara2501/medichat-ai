@@ -613,29 +613,83 @@ body {
 }
 @media screen and (max-width: 768px) {
 
+    /* Sidebar */
     .sidebar {
-        width: 85px;
-    }
-
-    .chat-container {
-        width: calc(100% - 85px);
+        width: 65px;
+        min-width: 65px;
+        overflow: hidden;
     }
 
     .logo h1,
+    .nav-item span,
     .user-info {
         display: none;
     }
 
-    .nav-item span {
-        font-size: 12px;
+    .logo {
+        justify-content: center;
+    }
+
+    .nav-item {
+        justify-content: center;
+        padding: 14px 0;
+    }
+
+    .user-profile {
+        justify-content: center;
+        padding: 10px 0;
+    }
+
+    /* Chat Area */
+    .chat-container {
+        width: calc(100% - 65px);
+    }
+
+    /* Header */
+    .header {
+        padding: 12px;
+    }
+
+    .header-left strong {
+        font-size: 20px;
+    }
+
+    .status {
+        font-size: 13px;
+    }
+
+    /* Welcome Text */
+    .welcome-section h1 {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    .welcome-section p {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    /* Input */
+    .input-area {
+        padding: 10px;
+    }
+
+    .input-wrapper {
+        width: 100%;
     }
 
     .input-wrapper input {
-        font-size: 14px;
+        font-size: 15px;
+        padding: 14px;
     }
 
-    .clear-btn {
-        font-size: 12px;
-        padding: 8px;
+    .send-btn {
+        width: 48px;
+        height: 48px;
+    }
+
+    /* Profile Card */
+    .profile-card {
+        width: 92%;
     }
 }
