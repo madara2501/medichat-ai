@@ -611,129 +611,119 @@ body {
         opacity: 1;
     }
 }
+/* =========================
+   MOBILE SIDEBAR FIX
+========================= */
 
-@media screen and (max-width: 768px) {
-
-    /* Sidebar */
-    .sidebar {
-    width: 65px;
-    min-width: 65px;
-    height: 100vh;
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+html, body{
+    overflow-x:hidden;
 }
 
-    .logo h1,
-    .nav-item span,
-    .user-info {
-        display: none;
-    }
-
-    .logo {
-        justify-content: center;
-        padding: 15px 0;
-    }
-
-    .nav-item {
-        justify-content: center;
-        padding: 14px 0;
-    }
-
-   .user-profile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12px 0;
+/* MOBILE MENU BUTTON */
+.mobile-menu-btn{
+    display:none;
+    background:none;
+    border:none;
+    font-size:22px;
+    cursor:pointer;
+    margin-right:10px;
 }
 
-    .profile-wrapper {
-    margin-bottom: 10px;
+/* OVERLAY */
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    z-index:998;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:0.3s;
 }
 
-    /* Main Chat Area */
-    .chat-container {
-        width: calc(100% - 65px);
-        height: 100vh;
+.overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+/* MOBILE */
+@media screen and (max-width:768px){
+
+    .container{
+        width:100%;
+        overflow:hidden;
     }
 
-    /* Header */
-    .header {
-        padding: 12px;
-        gap: 10px;
+    /* SIDEBAR */
+    .sidebar{
+        position:fixed;
+        left:0;
+        top:0;
+        width:260px;
+        height:100vh;
+
+        z-index:999;
+
+        transform:translateX(-100%);
+        transition:0.3s ease;
     }
 
-    .header-left strong {
-        font-size: 18px;
+    /* OPEN SIDEBAR */
+    .sidebar.active{
+        transform:translateX(0);
     }
 
-    .status {
-        font-size: 12px;
+    /* CHAT AREA */
+    .chat-container{
+        width:100%;
+        margin-left:0 !important;
     }
 
-    /* Clear Button */
-    .clear-btn {
-        font-size: 11px;
-        padding: 8px 10px;
-        border-radius: 10px;
+    /* HEADER */
+    .header{
+        width:100%;
+        padding:12px;
     }
 
-    /* Welcome Section */
-    .welcome-section h1 {
-        font-size: 28px;
-        text-align: center;
+    /* SHOW MENU BUTTON */
+    .mobile-menu-btn{
+        display:block;
     }
 
-    .welcome-section p {
-        font-size: 15px;
-        text-align: center;
-        line-height: 1.5;
+    /* FIX INPUT */
+    .input-area{
+        width:100%;
+        padding:10px;
     }
 
-    /* Messages */
-    .messages {
-        padding: 15px;
-        padding-bottom: 160px;
-        overflow-y: auto
+    .input-wrapper{
+        width:100%;
     }
 
-    /* Input Area */
-    .input-area {
-        position: fixed;
-        bottom: 10px;
-        left: 75px;
-        right: 10px;
-        padding: 0;
-        background: transparent;
-        z-index: 100;
+    /* PROFILE PAGE */
+    .profile-page{
+        width:100%;
+        padding:15px;
     }
 
-    .input-wrapper {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        border-radius: 30px;
-        overflow: hidden;
+    .profile-card{
+        width:100%;
     }
 
-    .input-wrapper input {
-        width: 100%;
-        font-size: 15px;
-        padding: 14px;
+    /* FIX OVERFLOW */
+    .messages{
+        width:100%;
+        overflow-x:hidden;
     }
 
-    .send-btn {
-        width: 50px;
-        min-width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        flex-shrink: 0;
+    /* SMALLER TEXT */
+    .header-left strong{
+        font-size:16px;
     }
 
-    /* Profile */
-    .profile-card {
-        width: 92%;
+    .status{
+        font-size:12px;
     }
+
 }
