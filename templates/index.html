@@ -10,10 +10,16 @@
 </head>
 
 <body>
+
+<!-- MOBILE OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
 <div class="container">
 
-    <!-- Sidebar -->
-    <div class="sidebar">
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+    <div class="sidebar" id="sidebar">
 
         <!-- Logo -->
         <div class="logo">
@@ -23,44 +29,59 @@
 
         <!-- Navigation -->
         <div class="nav">
-            <a href="#" onclick="switchTab(0)" class="nav-item active" id="tab-new">
+
+            <a href="#" onclick="switchTab(0); closeSidebar();" class="nav-item active" id="tab-new">
                 <i class="fa-solid fa-comments"></i>
                 <span>New Chat</span>
             </a>
 
-            <a href="#" onclick="switchTab(1)" class="nav-item" id="tab-history">
+            <a href="#" onclick="switchTab(1); closeSidebar();" class="nav-item" id="tab-history">
                 <i class="fa-solid fa-history"></i>
                 <span>History</span>
             </a>
+
         </div>
 
-        <!-- Profile Section -->
+        <!-- PROFILE SECTION -->
         <div class="profile-wrapper">
 
-            <!-- Clickable user -->
+            <!-- CLICKABLE PROFILE -->
             <div class="user-profile" onclick="toggleProfileMenu()">
-                <div class="avatar" id="avatar">{{ email.split('@')[0][:2].upper() }}</div>
+
+                <div class="avatar" id="avatar">
+                    {{ email.split('@')[0][:2].upper() }}
+                </div>
 
                 <div class="user-info">
-                    <strong id="username">{{ email.split('@')[0] }}</strong>
-                    <p id="useremail">{{ email }}</p>
+                    <strong id="username">
+                        {{ email.split('@')[0] }}
+                    </strong>
+
+                    <p id="useremail">
+                        {{ email }}
+                    </p>
                 </div>
+
             </div>
 
-            <!-- Dropdown menu -->
+            <!-- DROPDOWN MENU -->
             <div class="profile-menu" id="profileMenu">
 
                 <div class="profile-header">
-                    <div class="avatar big" id="avatarBig"> {{ email.split('@')[0][:2].upper() }}</div>
-                    <div>
-                       <strong id="dropdownUsername">
-                         {{ email.split('@')[0] }}
-                       </strong>
 
-                       <p>{{ email }}</p>
+                    <div class="avatar big" id="avatarBig">
+                        {{ email.split('@')[0][:2].upper() }}
                     </div>
-                </div>
 
+                    <div>
+                        <strong id="dropdownUsername">
+                            {{ email.split('@')[0] }}
+                        </strong>
+
+                        <p>{{ email }}</p>
+                    </div>
+
+                </div>
 
                 <hr>
 
@@ -71,128 +92,188 @@
 
                 <hr>
 
-                <button class="menu-item logout" onclick="logout()">Log out</button>
+                <button class="menu-item logout" onclick="logout()">
+                    Log out
+                </button>
+
             </div>
+
         </div>
 
     </div>
 
-
-    <!-- Chat Tab -->
+    <!-- =========================
+         CHAT TAB
+    ========================== -->
     <div class="chat-container" id="chat-tab">
 
+        <!-- HEADER -->
         <div class="header">
+
+            <!-- MOBILE MENU BUTTON -->
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
             <div class="header-left">
+
                 <i class="fa-solid fa-user-doctor"></i>
+
                 <div>
                     <strong>Dr. Aria (AI)</strong>
                     <span class="status">● Online</span>
                 </div>
+
             </div>
 
             <button onclick="clearCurrentChat()" class="clear-btn">
-                <i class="fa-solid fa-trash"></i> Clear Chat
+                <i class="fa-solid fa-trash"></i>
+                Clear Chat
             </button>
+
         </div>
 
+        <!-- MESSAGES -->
         <div class="messages" id="messages">
 
-           <!-- Typing Indicator -->
-           <div class="typing-indicator" id="typingIndicator" style="display:none;">
+            <!-- WELCOME -->
+            <div class="welcome-message">
 
-               <div class="typing-bubble">
-                 <span></span>
-                 <span></span>
-                 <span></span>
-               </div>
+                <div class="welcome-icon">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+
+                <h2>
+                    Hello {{ email.split('@')[0] }} 👋
+                </h2>
+
+                <p>
+                    How are you feeling today?
+                    Tell me about any symptoms.
+                </p>
+
+            </div>
+
+            <!-- TYPING -->
+            <div class="typing-indicator" id="typingIndicator" style="display:none;">
+
+                <div class="typing-bubble">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
 
             </div>
 
         </div>
 
+        <!-- INPUT -->
         <div class="input-area">
+
             <div class="input-wrapper">
-                <input type="text" id="user-input" placeholder="Describe your symptoms...">
+
+                <input
+                    type="text"
+                    id="user-input"
+                    placeholder="Describe your symptoms..."
+                >
+
                 <button onclick="sendMessage()" class="send-btn">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
+
             </div>
+
         </div>
 
     </div>
-     
 
-    <!-- History Tab -->
-    <div class="chat-container" id="history-tab" style="display: none;">
+    <!-- =========================
+         HISTORY TAB
+    ========================== -->
+    <div class="chat-container" id="history-tab" style="display:none;">
 
         <div class="header">
-            <h2>📜 Chat History</h2>
-            <button onclick="clearAllHistory()" class="clear-btn">
-                <i class="fa-solid fa-trash"></i> Clear All
+
+            <!-- MOBILE MENU BUTTON -->
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
             </button>
+
+            <h2>📜 Chat History</h2>
+
+            <button onclick="clearAllHistory()" class="clear-btn">
+                <i class="fa-solid fa-trash"></i>
+                Clear All
+            </button>
+
         </div>
 
         <div class="messages" id="history-messages"></div>
 
     </div>
-    <!-- PROFILE PAGE -->
+
+    <!-- =========================
+         PROFILE PAGE
+    ========================== -->
     <div class="profile-page" id="profile-page" style="display:none;">
 
-       <div class="profile-card">
+        <div class="profile-card">
 
-           <h2>My Profile</h2>
+            <h2>My Profile</h2>
 
-           <p class="profile-subtitle">
-               Manage your account information
-           </p>
+            <p class="profile-subtitle">
+                Manage your account information
+            </p>
 
-           <!-- BIG AVATAR -->
-           <div class="profile-avatar" id="bigProfileAvatar">
-               {{ email.split('@')[0][:2].upper() }}
-           </div>
+            <!-- BIG AVATAR -->
+            <div class="profile-avatar" id="bigProfileAvatar">
+                {{ email.split('@')[0][:2].upper() }}
+            </div>
 
-           <!-- FORM -->
-           <form id="profileForm">
+            <!-- FORM -->
+            <form id="profileForm">
 
-              <div class="form-group">
+                <div class="form-group">
 
-                   <label>Display Name</label>
+                    <label>Display Name</label>
 
-                   <input
-                       type="text"
-                       id="displayName"
-                       value="{{ email.split('@')[0] }}"
+                    <input
+                        type="text"
+                        id="displayName"
+                        value="{{ email.split('@')[0] }}"
                     >
-               </div>
 
-               <div class="form-group">
+                </div>
 
-                   <label>Email</label>
+                <div class="form-group">
 
-                   <input
-                       type="text"
-                       value="{{ email }}"
-                       readonly
-                   >
+                    <label>Email</label>
 
-               </div>
-
-               <div class="button-group">
-
-                   <button
-                       type="button"
-                       class="cancel-btn"
-                       onclick="closeProfile()"
+                    <input
+                        type="text"
+                        value="{{ email }}"
+                        readonly
                     >
-                    Cancel
-                   </button>
 
-                   <button
-                    type="submit"
-                    class="save-btn"
-                   >
-                       Save Changes
-                   </button>
+                </div>
+
+                <div class="button-group">
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="closeProfile()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        Save Changes
+                    </button>
 
                 </div>
 
@@ -204,10 +285,39 @@
 
 </div>
 
+<!-- =========================
+     SCRIPTS
+========================== -->
 
-<!-- Scripts -->
 <script>
     const userEmail = "{{ email }}";
+</script>
+
+<!-- MOBILE SIDEBAR SCRIPT -->
+<script>
+
+function toggleSidebar() {
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("active");
+
+    document
+        .getElementById("overlay")
+        .classList.toggle("active");
+}
+
+function closeSidebar() {
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("active");
+
+    document
+        .getElementById("overlay")
+        .classList.remove("active");
+}
+
 </script>
 
 <script src="/static/js/app.js"></script>
